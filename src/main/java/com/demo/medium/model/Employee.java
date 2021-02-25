@@ -14,16 +14,22 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.demo.medium.dto.EmployeeDto;
+import com.demo.medium.serviceimpl.GenderConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Employee {
 	
 	@Id
@@ -49,4 +55,12 @@ public class Employee {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JsonIgnore
     private Position position;
+	
+	public Employee(EmployeeDto employeeDto) {
+		this.name = employeeDto.getName();
+		this.gender = employeeDto.getJenisKelamin() == GenderConverter.gender.Pria ? 1 : 2;
+		this.birthDate = employeeDto.getBirthDate();
+		this.idNumber = employeeDto.getIdNumber();
+		this.isDelete = 0;
+	}
 }
