@@ -4,9 +4,11 @@ import com.demo.medium.model.Position;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
+@ToString(of = { "code", "name" })
 public class PositionDto {
 	private String code;
 	private String name;

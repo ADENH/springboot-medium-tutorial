@@ -8,7 +8,9 @@ import org.hibernate.UnresolvableObjectException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.demo.medium.config.aspect.Compliance;
 import com.demo.medium.dto.PositionDto;
+import com.demo.medium.model.ComplianceAction;
 import com.demo.medium.model.Position;
 import com.demo.medium.repository.PositionRepository;
 import com.demo.medium.service.PositionService;
@@ -20,6 +22,7 @@ public class PositionServiceImpl implements PositionService {
 	PositionRepository positionRepository;
 
 	@Override
+	@Compliance(action = ComplianceAction.read)
 	public List<PositionDto> getAllPositions() {
 		List<Position> allPositions = positionRepository.findByIsDelete(0);
 		List<PositionDto> allPositionDto = new ArrayList<PositionDto>(allPositions.stream()
@@ -28,18 +31,21 @@ public class PositionServiceImpl implements PositionService {
 	}
 
 	@Override
+	@Compliance(action = ComplianceAction.read)
 	public PositionDto getPositionByCode(String code) {
 		Position position = positionRepository.findByCode(code).orElseThrow();
 		return new PositionDto(position);
 	}
 
 	@Override
+	@Compliance(action = ComplianceAction.read)
 	public PositionDto getPositionById(int id) {
 		Position position = positionRepository.findById(id).orElseThrow();	
 		return new PositionDto(position);
 	}
 
 	@Override
+	@Compliance(action = ComplianceAction.create)
 	public PositionDto savePosition(PositionDto positionDto) {
 		Position position = new Position(positionDto);
 		position = positionRepository.save(position);
@@ -49,6 +55,7 @@ public class PositionServiceImpl implements PositionService {
 	}
 
 	@Override
+	@Compliance(action = ComplianceAction.update)
 	public PositionDto updatePosition(int id, PositionDto positionDto) {
 		Position position = positionRepository.findById(id).orElseThrow();
 		position.setCode(positionDto.getCode());
@@ -58,6 +65,7 @@ public class PositionServiceImpl implements PositionService {
 	}
 
 	@Override
+	@Compliance(action = ComplianceAction.delete)
 	public void deletePosition(int id) {
 		Position position = positionRepository.findById(id).orElseThrow();
 		position.setIsDelete(1);

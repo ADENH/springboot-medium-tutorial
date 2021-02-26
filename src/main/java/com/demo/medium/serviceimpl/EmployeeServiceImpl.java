@@ -3,8 +3,6 @@ package com.demo.medium.serviceimpl;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +13,9 @@ import org.hibernate.UnresolvableObjectException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.demo.medium.config.aspect.Compliance;
 import com.demo.medium.dto.EmployeeDto;
+import com.demo.medium.model.ComplianceAction;
 import com.demo.medium.model.Employee;
 import com.demo.medium.model.Position;
 import com.demo.medium.repository.EmployeeRepository;
@@ -32,6 +32,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	EmployeeRepository employeeRepository;
 
 	@Override
+	@Compliance(action = ComplianceAction.read)
 	public EmployeeDto getEmployeeById(int id) {
 		Employee employee = employeeRepository.findById(id).orElseThrow();
 		EmployeeDto employeeDto = new EmployeeDto(employee);
@@ -39,6 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
+	@Compliance(action = ComplianceAction.read)
 	public EmployeeDto getEmployeeByIdNumber(int idNumber) {
 		Employee employee = employeeRepository.findByIdNumber(idNumber).orElseThrow();
 		EmployeeDto employeeDto = new EmployeeDto(employee);
@@ -46,6 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
+	@Compliance(action = ComplianceAction.read)
 	public List<EmployeeDto> getAllDataEmployee() {
 		List<Employee> employees = employeeRepository.findByIsDelete(0);
 		 List<EmployeeDto> employeeDtos = new ArrayList<EmployeeDto>(employees.stream()
@@ -54,6 +57,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
+	@Compliance(action = ComplianceAction.update)
 	public EmployeeDto updateDateEmployee(int idNumber, EmployeeDto employeeDto) {
 		Employee employee = employeeRepository.findByIdNumber(idNumber).orElseThrow();
 		employee = setEmployeeData(employee, employeeDto);
@@ -63,6 +67,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
+	@Compliance(action = ComplianceAction.delete)
 	public void deleteDataEmployee(int idNumber) {
 		Employee employee = employeeRepository.findByIdNumber(idNumber).orElseThrow();
 		employee.setIsDelete(1);
@@ -70,6 +75,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
+	@Compliance(action = ComplianceAction.create)
 	public EmployeeDto saveDateEmployee(EmployeeDto employeeDto) {
 		
 		Employee employee = new Employee(employeeDto);
