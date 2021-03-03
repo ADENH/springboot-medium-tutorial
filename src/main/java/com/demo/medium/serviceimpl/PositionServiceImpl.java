@@ -2,6 +2,7 @@ package com.demo.medium.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import org.hibernate.UnresolvableObjectException;
@@ -33,14 +34,14 @@ public class PositionServiceImpl implements PositionService {
 	@Override
 	@Compliance(action = ComplianceAction.read)
 	public PositionDto getPositionByCode(String code) {
-		Position position = positionRepository.findByCode(code).orElseThrow();
+		Position position = positionRepository.findByCode(code).orElseThrow(() -> new NoSuchElementException("data tidak ditemukan"));
 		return new PositionDto(position);
 	}
 
 	@Override
 	@Compliance(action = ComplianceAction.read)
 	public PositionDto getPositionById(int id) {
-		Position position = positionRepository.findById(id).orElseThrow();	
+		Position position = positionRepository.findById(id).orElseThrow(() -> new NoSuchElementException("data tidak ditemukan"));	
 		return new PositionDto(position);
 	}
 
@@ -49,7 +50,7 @@ public class PositionServiceImpl implements PositionService {
 	public PositionDto savePosition(PositionDto positionDto) {
 		Position position = new Position(positionDto);
 		position = positionRepository.save(position);
-		if (position.getId() == null)
+		if (position.getId() == -1)
 			throw new UnresolvableObjectException(Position.class, "Gagal Save Database");
 		return positionDto;
 	}
@@ -57,7 +58,7 @@ public class PositionServiceImpl implements PositionService {
 	@Override
 	@Compliance(action = ComplianceAction.update)
 	public PositionDto updatePosition(int id, PositionDto positionDto) {
-		Position position = positionRepository.findById(id).orElseThrow();
+		Position position = positionRepository.findById(id).orElseThrow(() -> new NoSuchElementException("data tidak ditemukan"));
 		position.setCode(positionDto.getCode());
 		position.setName(positionDto.getName());
 		positionRepository.save(position);
@@ -67,7 +68,7 @@ public class PositionServiceImpl implements PositionService {
 	@Override
 	@Compliance(action = ComplianceAction.delete)
 	public void deletePosition(int id) {
-		Position position = positionRepository.findById(id).orElseThrow();
+		Position position = positionRepository.findById(id).orElseThrow(() -> new NoSuchElementException("data tidak ditemukan"));
 		position.setIsDelete(1);
 		positionRepository.save(position);
 

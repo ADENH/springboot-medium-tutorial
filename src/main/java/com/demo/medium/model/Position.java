@@ -46,6 +46,7 @@ public class Position {
 	private Set<Employee> employees;
 
 	public Position(PositionDto positionDto) {
+		this.id = -1;
 		this.code = positionDto.getCode();
 		this.name = positionDto.getName();
 		this.isDelete = 0;

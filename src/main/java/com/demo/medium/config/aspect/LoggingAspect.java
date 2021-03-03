@@ -36,6 +36,7 @@ public class LoggingAspect {
 
 	@Pointcut("within(com.demo.medium..controller..*) ||  within(com.demo.medium..service..*) || within(com.demo.medium..serviceimpl..*)")
 	public void applicationPointCut() {
+		// pointcut aspect location
 	}
 	
 	/**

@@ -23,32 +23,32 @@ public class PositionController {
 	PositionService positionService;
 	
 	@PostMapping
-	ResponseEntity<?> savePosition(@RequestBody PositionDto positionDto){
+	public ResponseEntity<?> savePosition(@RequestBody PositionDto positionDto){
 		return new ResponseEntity<>(positionService.savePosition(positionDto), HttpStatus.CREATED);
 	}
 	
 	@GetMapping
-	ResponseEntity<?> getAllPositions(){
+	public ResponseEntity<?> getAllPositions(){
 		return new ResponseEntity<>(positionService.getAllPositions(),HttpStatus.OK);
 	}
 	
 	@GetMapping("/id/{id}")
-	ResponseEntity<?> getPositionById(@PathVariable int id){
+	public ResponseEntity<?> getPositionById(@PathVariable int id){
 		return new ResponseEntity<>(positionService.getPositionById(id),HttpStatus.OK);
 	}
 	
 	@GetMapping("/code/{code}")
-	ResponseEntity<?> getPositionByCode(@PathVariable String code){
+	public ResponseEntity<?> getPositionByCode(@PathVariable String code){
 		return new ResponseEntity<>(positionService.getPositionByCode(code),HttpStatus.OK);
 	}
 	
 	@PutMapping("/{id}")
-	ResponseEntity<?> updatePosition(@PathVariable int id,@RequestBody PositionDto positionDto){
+	public ResponseEntity<?> updatePosition(@PathVariable int id,@RequestBody PositionDto positionDto){
 		return new ResponseEntity<>(positionService.updatePosition(id, positionDto),HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
-	ResponseEntity<?> deletePosition(@PathVariable int id){
+	public ResponseEntity<?> deletePosition(@PathVariable int id){
 		positionService.deletePosition(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

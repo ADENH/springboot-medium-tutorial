@@ -1,12 +1,8 @@
 package com.demo.medium.serviceimpl;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import org.hibernate.UnresolvableObjectException;
@@ -30,11 +26,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 	
 	@Autowired
 	EmployeeRepository employeeRepository;
+	
 
 	@Override
 	@Compliance(action = ComplianceAction.read)
 	public EmployeeDto getEmployeeById(int id) {
-		Employee employee = employeeRepository.findById(id).orElseThrow();
+		Employee employee = employeeRepository.findById(id).orElseThrow(() -> new NoSuchElementException("data tidak ditemukan"));
 		EmployeeDto employeeDto = new EmployeeDto(employee);
 		return employeeDto;
 	}
@@ -42,7 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	@Compliance(action = ComplianceAction.read)
 	public EmployeeDto getEmployeeByIdNumber(int idNumber) {
-		Employee employee = employeeRepository.findByIdNumber(idNumber).orElseThrow();
+		Employee employee = employeeRepository.findByIdNumber(idNumber).orElseThrow(() -> new NoSuchElementException("data tidak ditemukan"));
 		EmployeeDto employeeDto = new EmployeeDto(employee);
 		return employeeDto;
 	}
@@ -59,7 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	@Compliance(action = ComplianceAction.update)
 	public EmployeeDto updateDateEmployee(int idNumber, EmployeeDto employeeDto) {
-		Employee employee = employeeRepository.findByIdNumber(idNumber).orElseThrow();
+		Employee employee = employeeRepository.findByIdNumber(idNumber).orElseThrow(() -> new NoSuchElementException("data tidak ditemukan"));
 		employee = setEmployeeData(employee, employeeDto);
 		employeeRepository.save(employee);
 		
@@ -69,7 +66,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	@Compliance(action = ComplianceAction.delete)
 	public void deleteDataEmployee(int idNumber) {
-		Employee employee = employeeRepository.findByIdNumber(idNumber).orElseThrow();
+		Employee employee = employeeRepository.findByIdNumber(idNumber).orElseThrow(() -> new NoSuchElementException("data tidak ditemukan"));
 		employee.setIsDelete(1);
 		employeeRepository.save(employee);
 	}
@@ -79,7 +76,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public EmployeeDto saveDateEmployee(EmployeeDto employeeDto) {
 		
 		Employee employee = new Employee(employeeDto);
-		Position position = positionRepository.findByCode(employeeDto.getCodeJabatan()).orElseThrow();
+		Position position = positionRepository.findByCode(employeeDto.getCodeJabatan()).orElseThrow(() -> new NoSuchElementException("data tidak ditemukan"));
 		employee.setPosition(position);
 		
 		employee = employeeRepository.save(employee);
@@ -88,32 +85,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 	
 	private Employee setEmployeeData(Employee employee, EmployeeDto employeeDto) {
-		formatDate(employeeDto.getBirthDate());
 		employee.setBirthDate(employeeDto.getBirthDate());
-		employee.setGender(employeeDto.getJenisKelamin() == GenderConverter.gender.Pria ? 1 : 2);
+		employee.setGender(employeeDto.getJenisKelamin() == GenderConverter.gender.PRIA ? 1 : 2);
 		employee.setIdNumber(employeeDto.getIdNumber());
 		employee.setIsDelete(0);
 		employee.setName(employeeDto.getName());
-		employee.setPosition(positionRepository.findByCode(employeeDto.getCodeJabatan()).orElseThrow());
+		employee.setPosition(positionRepository.findByCode(employeeDto.getCodeJabatan()).orElseThrow(() -> new NoSuchElementException("data tidak ditemukan")));
 		return employee;
 	}
-	
-	private void formatDate(Date datetime) {
-//		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
-//		SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-mm-dd");
-//		LocalDate date = LocalDate.parse(datetime.toString(),inputFormatter);
-//		String formattedDate = outputFormat.format(date);
-//		System.out.println(formattedDate); // prints 10-04-2018
-		DateFormat dateFormat = new SimpleDateFormat(
-	            "yyyy-mm-dd", Locale.US);
-		try {
-			dateFormat.parse("Tue Jul 13 00:00:00 CEST 2011");
-			System.out.println(dateFormat.format(new Date()));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-
 }

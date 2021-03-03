@@ -23,7 +23,6 @@ public class ComplianceEventAspect {
 	        CompletableFuture.runAsync(() -> {
 	             ComplianceEvent complianceEvent = buildComplianceEvent(joinPoint, compliance);
 	             LOGGER.info(complianceEvent);
-	            // TODO: go do something to record the compliance event
 	        });
 	   }
 	   

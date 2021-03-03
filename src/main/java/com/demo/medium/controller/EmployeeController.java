@@ -23,28 +23,28 @@ public class EmployeeController {
 	EmployeeService employeeService;
 	
 	@GetMapping
-	ResponseEntity<?> getAllEmployeeData(){
+	public ResponseEntity<?> getAllEmployeeData(){
 		return new ResponseEntity<>(employeeService.getAllDataEmployee(),HttpStatus.OK);
 	}
 	
 	@PostMapping
-	ResponseEntity<?> saveDataEmployee(@RequestBody EmployeeDto employeeDto) {
+	public ResponseEntity<?> saveDataEmployee(@RequestBody EmployeeDto employeeDto) {
 		employeeService.saveDateEmployee(employeeDto);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{idNumber}")
-	ResponseEntity<?> getEmployeeDataByIdNumber(@PathVariable int idNumber){
+	public ResponseEntity<?> getEmployeeDataByIdNumber(@PathVariable int idNumber){
 		return new ResponseEntity<>(employeeService.getEmployeeByIdNumber(idNumber),HttpStatus.OK);
 	}
 	
 	@PutMapping("/{idNumber}")
-	ResponseEntity<?> updateDataEmployee(@PathVariable int idNumber,@RequestBody EmployeeDto employeeDto){
+	public ResponseEntity<?> updateDataEmployee(@PathVariable int idNumber,@RequestBody EmployeeDto employeeDto){
 		return new ResponseEntity<>(employeeService.updateDateEmployee(idNumber, employeeDto), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{idNumber}")
-	ResponseEntity<?> deleteDataEmployee(@PathVariable int idNumber){
+	public ResponseEntity<?> deleteDataEmployee(@PathVariable int idNumber){
 		employeeService.deleteDataEmployee(idNumber);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

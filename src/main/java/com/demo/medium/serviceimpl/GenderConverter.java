@@ -2,14 +2,14 @@ package com.demo.medium.serviceimpl;
 
 public class GenderConverter {
 	public enum gender {
-        Pria,Wanita
+        PRIA,WANITA
     }
 	
 	public static gender convert(int genderCode) {
 		if(genderCode == 1) {
-			return gender.Pria;
+			return gender.PRIA;
 		}else if(genderCode == 2) {
-			return gender.Wanita;
+			return gender.WANITA;
 		}
 		return null;
 	}

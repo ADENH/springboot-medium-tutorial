@@ -58,7 +58,7 @@ public class Employee {
 	
 	public Employee(EmployeeDto employeeDto) {
 		this.name = employeeDto.getName();
-		this.gender = employeeDto.getJenisKelamin() == GenderConverter.gender.Pria ? 1 : 2;
+		this.gender = employeeDto.getJenisKelamin() == GenderConverter.gender.PRIA ? 1 : 2;
 		this.birthDate = employeeDto.getBirthDate();
 		this.idNumber = employeeDto.getIdNumber();
 		this.isDelete = 0;
