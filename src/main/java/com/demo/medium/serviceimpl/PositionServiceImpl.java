@@ -13,7 +13,7 @@ import com.demo.medium.config.ConstantUtil;
 import com.demo.medium.config.aspect.Compliance;
 import com.demo.medium.dto.PositionDto;
 import com.demo.medium.model.ComplianceAction;
-import com.demo.medium.model.Position;
+import com.demo.medium.model.entity.Position;
 import com.demo.medium.repository.PositionRepository;
 import com.demo.medium.service.PositionService;
 

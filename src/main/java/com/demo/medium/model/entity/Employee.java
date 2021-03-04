@@ -1,4 +1,4 @@
-package com.demo.medium.model;
+package com.demo.medium.model.entity;
 
 import java.util.Date;
 

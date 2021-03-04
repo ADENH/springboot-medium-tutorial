@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.demo.medium.model.Employee;
+import com.demo.medium.model.entity.Employee;
 import com.demo.medium.serviceimpl.GenderConverter;
 import com.demo.medium.serviceimpl.GenderConverter.gender;
 

@@ -1,6 +1,6 @@
 package com.demo.medium.dto;
 
-import com.demo.medium.model.Position;
+import com.demo.medium.model.entity.Position;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
