@@ -9,6 +9,7 @@ import org.hibernate.UnresolvableObjectException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.demo.medium.config.ConstantUtil;
 import com.demo.medium.config.aspect.Compliance;
 import com.demo.medium.dto.EmployeeDto;
 import com.demo.medium.model.ComplianceAction;
@@ -26,37 +27,36 @@ public class EmployeeServiceImpl implements EmployeeService{
 	
 	@Autowired
 	EmployeeRepository employeeRepository;
-	
 
 	@Override
 	@Compliance(action = ComplianceAction.read)
 	public EmployeeDto getEmployeeById(int id) {
-		Employee employee = employeeRepository.findById(id).orElseThrow(() -> new NoSuchElementException("data tidak ditemukan"));
-		EmployeeDto employeeDto = new EmployeeDto(employee);
-		return employeeDto;
+		Employee employee = employeeRepository.findById(id).orElseThrow(() -> new NoSuchElementException(ConstantUtil.DATA_TIDAK_DITEMUKAN));
+		return new EmployeeDto(employee);
+		
 	}
 
 	@Override
 	@Compliance(action = ComplianceAction.read)
 	public EmployeeDto getEmployeeByIdNumber(int idNumber) {
-		Employee employee = employeeRepository.findByIdNumber(idNumber).orElseThrow(() -> new NoSuchElementException("data tidak ditemukan"));
-		EmployeeDto employeeDto = new EmployeeDto(employee);
-		return employeeDto;
+		Employee employee = employeeRepository.findByIdNumber(idNumber).orElseThrow(() -> new NoSuchElementException(ConstantUtil.DATA_TIDAK_DITEMUKAN));
+		return new EmployeeDto(employee);
+		
 	}
 
 	@Override
 	@Compliance(action = ComplianceAction.read)
 	public List<EmployeeDto> getAllDataEmployee() {
 		List<Employee> employees = employeeRepository.findByIsDelete(0);
-		 List<EmployeeDto> employeeDtos = new ArrayList<EmployeeDto>(employees.stream()
+		return new ArrayList<>(employees.stream()
 				 .map(employee -> new EmployeeDto(employee)).collect(Collectors.toList()));
-		return employeeDtos;
+		 
 	}
 
 	@Override
 	@Compliance(action = ComplianceAction.update)
 	public EmployeeDto updateDateEmployee(int idNumber, EmployeeDto employeeDto) {
-		Employee employee = employeeRepository.findByIdNumber(idNumber).orElseThrow(() -> new NoSuchElementException("data tidak ditemukan"));
+		Employee employee = employeeRepository.findByIdNumber(idNumber).orElseThrow(() -> new NoSuchElementException(ConstantUtil.DATA_TIDAK_DITEMUKAN));
 		employee = setEmployeeData(employee, employeeDto);
 		employeeRepository.save(employee);
 		
@@ -66,7 +66,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	@Compliance(action = ComplianceAction.delete)
 	public void deleteDataEmployee(int idNumber) {
-		Employee employee = employeeRepository.findByIdNumber(idNumber).orElseThrow(() -> new NoSuchElementException("data tidak ditemukan"));
+		Employee employee = employeeRepository.findByIdNumber(idNumber).orElseThrow(() -> new NoSuchElementException(ConstantUtil.DATA_TIDAK_DITEMUKAN));
 		employee.setIsDelete(1);
 		employeeRepository.save(employee);
 	}
@@ -90,7 +90,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		employee.setIdNumber(employeeDto.getIdNumber());
 		employee.setIsDelete(0);
 		employee.setName(employeeDto.getName());
-		employee.setPosition(positionRepository.findByCode(employeeDto.getCodeJabatan()).orElseThrow(() -> new NoSuchElementException("data tidak ditemukan")));
+		employee.setPosition(positionRepository.findByCode(employeeDto.getCodeJabatan()).orElseThrow(() -> new NoSuchElementException(ConstantUtil.DATA_TIDAK_DITEMUKAN)));
 		return employee;
 	}
 }

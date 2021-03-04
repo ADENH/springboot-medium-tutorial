@@ -1,5 +1,7 @@
 package com.demo.medium.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +25,7 @@ public class EmployeeController {
 	EmployeeService employeeService;
 	
 	@GetMapping
-	public ResponseEntity<?> getAllEmployeeData(){
+	public ResponseEntity<List<EmployeeDto>> getAllEmployeeData(){
 		return new ResponseEntity<>(employeeService.getAllDataEmployee(),HttpStatus.OK);
 	}
 	
@@ -34,12 +36,12 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/{idNumber}")
-	public ResponseEntity<?> getEmployeeDataByIdNumber(@PathVariable int idNumber){
+	public ResponseEntity<EmployeeDto> getEmployeeDataByIdNumber(@PathVariable int idNumber){
 		return new ResponseEntity<>(employeeService.getEmployeeByIdNumber(idNumber),HttpStatus.OK);
 	}
 	
 	@PutMapping("/{idNumber}")
-	public ResponseEntity<?> updateDataEmployee(@PathVariable int idNumber,@RequestBody EmployeeDto employeeDto){
+	public ResponseEntity<EmployeeDto> updateDataEmployee(@PathVariable int idNumber,@RequestBody EmployeeDto employeeDto){
 		return new ResponseEntity<>(employeeService.updateDateEmployee(idNumber, employeeDto), HttpStatus.CREATED);
 	}
 	
