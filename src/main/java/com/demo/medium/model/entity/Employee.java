@@ -17,7 +17,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.demo.medium.dto.EmployeeDto;
 import com.demo.medium.serviceimpl.GenderConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,10 +33,10 @@ public class Employee {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotNull
+	@NonNull
 	private Integer id;
 	
-	@NotNull
+	@NonNull
 	private String name;
 	
 	@Temporal(TemporalType.DATE)
@@ -57,6 +56,7 @@ public class Employee {
     private Position position;
 	
 	public Employee(EmployeeDto employeeDto) {
+		this.id = -1;
 		this.name = employeeDto.getName();
 		this.gender = employeeDto.getJenisKelamin() == GenderConverter.gender.PRIA ? 1 : 2;
 		this.birthDate = employeeDto.getBirthDate();

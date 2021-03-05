@@ -80,7 +80,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		employee.setPosition(position);
 		
 		employee = employeeRepository.save(employee);
-		if(employee.getId() == null) throw new UnresolvableObjectException(Employee.class,"Gagal Save employee");
+		if(employee.getId() == -1) throw new UnresolvableObjectException(Employee.class,"Gagal Save employee");
 		return new EmployeeDto(employee);
 	}
 	
