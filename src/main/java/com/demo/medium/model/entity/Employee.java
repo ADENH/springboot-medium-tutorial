@@ -1,5 +1,6 @@
 package com.demo.medium.model.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -30,8 +31,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Employee {
+public class Employee implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7865569240793115769L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NotNull

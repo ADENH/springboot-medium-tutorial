@@ -1,5 +1,6 @@
 package com.demo.medium.model.entity;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.OneToMany;
 
 import com.demo.medium.dto.PositionDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,17 +28,26 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString(of = { "code", "name" })
 @Entity
-public class Position {
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+public class Position implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5069357708476204416L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NonNull
 	private Integer id;
+	
 	@NonNull
 	@Column(unique = true)
 	private String code;
+	
 	@NonNull
 	private String name;
+	
 	@Column(name = "is_delete")
 	@NonNull
 	private Integer isDelete;
@@ -44,6 +55,10 @@ public class Position {
 	@OneToMany(mappedBy = "position", fetch = FetchType.LAZY)
 	@JsonIgnore
 	private Set<Employee> employees;
+	
+	@OneToMany(mappedBy = "position", fetch = FetchType.LAZY)
+	@JsonIgnore
+	private Set<Account> account;
 
 	public Position(PositionDto positionDto) {
 		this.id = -1;
