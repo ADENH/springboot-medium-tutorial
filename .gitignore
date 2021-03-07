@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+spring-boot-elk.log
+spring-boot-elk.log.2021-03-05.0.gz
+*.gz
