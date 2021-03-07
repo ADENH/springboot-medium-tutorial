@@ -3,6 +3,7 @@ package com.demo.medium.serviceimpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.demo.medium.dto.kawalcorona.KawalCoronaDto;
@@ -15,13 +16,15 @@ public class KawalCoronaServiceImpl implements KawalCoronaService {
 
 	@Autowired
 	KawalCoronaRepository kawalCoronaRepository;
-	
+
 	@Override
-	public List<KawalCoronaIndonesiaDto> getDataCoronaIndonesia() {
+	@Cacheable(value = "dataCoronaIndonesia")
+	public List<KawalCoronaIndonesiaDto> getDataCoronaIndonesia() { 
 		return kawalCoronaRepository.getDataCoronaIndonesia();
 	}
 
 	@Override
+	@Cacheable(value = "data")
 	public List<KawalCoronaDto> getDataCoronaDunia() {
 		return kawalCoronaRepository.getDataCoronaDunia();
 	}

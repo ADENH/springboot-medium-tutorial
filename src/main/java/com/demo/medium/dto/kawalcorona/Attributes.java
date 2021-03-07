@@ -1,11 +1,20 @@
 package com.demo.medium.dto.kawalcorona;
 
+
+
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
 @Data
-public class Attributes {
+public class Attributes implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8107243230024614522L;
+
 	@JsonProperty("OBJECTID")
 	private Long objectId;
 	
