@@ -1,5 +1,6 @@
 package com.demo.medium.model.entity;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.OneToMany;
 
 import com.demo.medium.dto.PositionDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,8 +28,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString(of = { "code", "name" })
 @Entity
-public class Position {
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+public class Position implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5046429462024401492L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NonNull

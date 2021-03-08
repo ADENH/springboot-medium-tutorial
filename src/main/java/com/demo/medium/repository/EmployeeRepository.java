@@ -12,4 +12,5 @@ import com.demo.medium.model.entity.Employee;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer>{
 	List<Employee> findByIsDelete(Integer isDelete);
 	Optional<Employee> findByIdNumber(Integer idNumber);
+	Optional<Employee> findByUsername(String username);
 }

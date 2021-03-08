@@ -7,4 +7,5 @@ public class ConstantUtil {
 	  }
 
 	public static final String DATA_TIDAK_DITEMUKAN = "data tidak ditemukan";
+	public static final String DATA_GAGAL_DISIMPAN = "data tidak berhasil disimpan";
 }

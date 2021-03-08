@@ -3,30 +3,37 @@ package com.demo.medium.serviceimpl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.hibernate.UnresolvableObjectException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.demo.medium.config.ConstantUtil;
 import com.demo.medium.config.aspect.Compliance;
+import com.demo.medium.dto.AccountDto;
 import com.demo.medium.dto.EmployeeDto;
 import com.demo.medium.model.ComplianceAction;
 import com.demo.medium.model.entity.Employee;
 import com.demo.medium.model.entity.Position;
 import com.demo.medium.repository.EmployeeRepository;
 import com.demo.medium.repository.PositionRepository;
+import com.demo.medium.service.AccountService;
 import com.demo.medium.service.EmployeeService;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService{
+public class EmployeeServiceImpl implements EmployeeService, AccountService{
 	
 	@Autowired
 	PositionRepository positionRepository;
 	
 	@Autowired
 	EmployeeRepository employeeRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	@Compliance(action = ComplianceAction.read)
@@ -92,5 +99,23 @@ public class EmployeeServiceImpl implements EmployeeService{
 		employee.setName(employeeDto.getName());
 		employee.setPosition(positionRepository.findByCode(employeeDto.getCodeJabatan()).orElseThrow(() -> new NoSuchElementException(ConstantUtil.DATA_TIDAK_DITEMUKAN)));
 		return employee;
+	}
+
+	@Override
+	public Employee getEmployeeByUsername(String username) {
+		return employeeRepository.findByUsername(username).orElseThrow(() -> new NoSuchElementException(ConstantUtil.DATA_TIDAK_DITEMUKAN));
+	}
+
+	@Override
+	public Employee saveDataUser(AccountDto accountDto) {
+		String password = passwordEncoder.encode(accountDto.getPassword());
+		accountDto.setPassword(password);
+		
+		Employee employeeBaru = new Employee(accountDto);
+		Position position = positionRepository.findByCode(accountDto.getCodeJabatan()).orElseThrow(() -> new NoSuchElementException(ConstantUtil.DATA_TIDAK_DITEMUKAN));
+		employeeBaru.setPosition(position);
+		
+		Integer id = Optional.of(employeeRepository.save(employeeBaru)).map(v -> v.getId()).orElseThrow(() -> new NoSuchElementException(ConstantUtil.DATA_GAGAL_DISIMPAN));
+		return employeeRepository.findById(id).orElseThrow(() -> new NoSuchElementException(ConstantUtil.DATA_TIDAK_DITEMUKAN));
 	}
 }
