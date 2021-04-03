@@ -10,6 +10,13 @@ import com.demo.medium.model.CurrentPrincipal;
 import com.demo.medium.model.entity.Employee;
 import com.demo.medium.service.AccountService;
 
+
+/**
+ * Created by Spring Tool Suite.
+ * @author Ade Hidayat
+ * Date: Mar 18, 2021
+ * Time: 11:29:37 AM
+ */
 @Service
 public class CurrentUserDetailsServiceImpl implements UserDetailsService
 {

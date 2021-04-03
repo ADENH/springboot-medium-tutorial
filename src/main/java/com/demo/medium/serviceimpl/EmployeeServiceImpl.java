@@ -23,6 +23,12 @@ import com.demo.medium.repository.PositionRepository;
 import com.demo.medium.service.AccountService;
 import com.demo.medium.service.EmployeeService;
 
+/**
+ * Created by Spring Tool Suite.
+ * @author Ade Hidayat
+ * Date: Mar 18, 2021
+ * Time: 11:37:55 AM
+ */
 @Service
 public class EmployeeServiceImpl implements EmployeeService, AccountService{
 	
@@ -35,6 +41,7 @@ public class EmployeeServiceImpl implements EmployeeService, AccountService{
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	
 	@Override
 	@Compliance(action = ComplianceAction.read)
 	public EmployeeDto getEmployeeById(int id) {
