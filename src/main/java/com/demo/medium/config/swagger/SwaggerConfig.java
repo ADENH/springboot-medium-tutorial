@@ -12,8 +12,12 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-
-
+/**
+ * Created by Spring Tool Suite.
+ * @author Ade Hidayat
+ * Date: Apr 3, 2021
+ * Time: 11:06:18 AM
+ */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {                                    
