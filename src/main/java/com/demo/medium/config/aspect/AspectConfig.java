@@ -8,6 +8,12 @@ import org.springframework.core.env.Environment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Created by Spring Tool Suite.
+ * @author Ade Hidayat
+ * Date: Apr 3, 2021
+ * Time: 11:46:53 AM
+ */
 @Configuration
 @EnableAspectJAutoProxy
 public class AspectConfig {
