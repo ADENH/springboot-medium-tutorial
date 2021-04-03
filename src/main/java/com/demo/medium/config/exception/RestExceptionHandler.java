@@ -15,6 +15,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.demo.medium.model.ErrorResponse;
 
+/**
+ * Created by Spring Tool Suite.
+ * @author Ade Hidayat
+ * Date: Apr 3, 2021
+ * Time: 11:04:50 AM
+ */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
