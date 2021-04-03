@@ -15,6 +15,12 @@ import org.springframework.util.StopWatch;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Created by Spring Tool Suite.
+ * @author Ade Hidayat
+ * Date: Apr 3, 2021
+ * Time: 11:49:58 AM
+ */
 @Aspect
 public class LoggingAspect {
 	
