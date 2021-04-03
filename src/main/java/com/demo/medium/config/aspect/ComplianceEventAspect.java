@@ -10,6 +10,12 @@ import org.aspectj.lang.annotation.Aspect;
 
 import com.demo.medium.model.ComplianceEvent;
 
+/**
+ * Created by Spring Tool Suite.
+ * @author Ade Hidayat
+ * Date: Apr 3, 2021
+ * Time: 11:48:38 AM
+ */
 @Aspect
 public class ComplianceEventAspect {
 	private static final Logger LOGGER = LogManager.getLogger(ComplianceEventAspect.class);
