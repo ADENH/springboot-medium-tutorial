@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.demo.medium.dto.kawalcorona.KawalCoronaDto;
 import com.demo.medium.dto.kawalcorona.KawalCoronaIndonesiaDto;
+import com.demo.medium.dto.response.ResponseTemplate;
 
 public interface KawalCoronaService {
-	List<KawalCoronaIndonesiaDto> getDataCoronaIndonesia();
-	List<KawalCoronaDto> getDataCoronaDunia();
+	ResponseTemplate<List<KawalCoronaIndonesiaDto>> getDataCoronaIndonesia();
+	ResponseTemplate<List<KawalCoronaIndonesiaDto>> getDataCoronaArab();
+	ResponseTemplate<List<KawalCoronaDto>> getDataCoronaDunia();
 }

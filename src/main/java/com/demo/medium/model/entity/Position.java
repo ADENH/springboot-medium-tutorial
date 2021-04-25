@@ -32,11 +32,14 @@ public class Position {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NonNull
 	private Integer id;
+	
 	@NonNull
 	@Column(unique = true)
 	private String code;
+	
 	@NonNull
 	private String name;
+	
 	@Column(name = "is_delete")
 	@NonNull
 	private Integer isDelete;

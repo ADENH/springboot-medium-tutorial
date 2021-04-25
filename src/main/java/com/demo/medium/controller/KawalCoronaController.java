@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.medium.dto.kawalcorona.KawalCoronaDto;
 import com.demo.medium.dto.kawalcorona.KawalCoronaIndonesiaDto;
+import com.demo.medium.dto.response.ResponseTemplate;
 import com.demo.medium.service.KawalCoronaService;
 
 @RestController
@@ -19,12 +20,17 @@ public class KawalCoronaController {
 	KawalCoronaService kawalCoronaService;
 	
 	@GetMapping("/indonesia")
-	public List<KawalCoronaIndonesiaDto> getDataCoronaIndonesia(){
+	public ResponseTemplate<List<KawalCoronaIndonesiaDto>> getDataCoronaIndonesia(){
 		return kawalCoronaService.getDataCoronaIndonesia();
 	}
 	
+	@GetMapping("/arab")
+	public ResponseTemplate<List<KawalCoronaIndonesiaDto>> getDataCoronaArab(){
+		return kawalCoronaService.getDataCoronaArab();
+	}
+	
 	@GetMapping
-	public List<KawalCoronaDto> getDataCoronaDunia(){
+	public ResponseTemplate<List<KawalCoronaDto>> getDataCoronaDunia(){
 		return kawalCoronaService.getDataCoronaDunia();
 	}
 }

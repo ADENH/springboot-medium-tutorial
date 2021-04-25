@@ -14,6 +14,9 @@ public interface KawalCoronaRepository {
 	@GetMapping("indonesia/")
 	public List<KawalCoronaIndonesiaDto> getDataCoronaIndonesia();
 	
+	@GetMapping("arab/")
+	public List<KawalCoronaIndonesiaDto> getDataCoronaArab();
+	
 	@GetMapping
 	public List<KawalCoronaDto> getDataCoronaDunia();
 
